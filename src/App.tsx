@@ -27,7 +27,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>React Basic Color Picker Extension</h1>
+      <h1>Color Picker</h1>
       <div className="card">
         <input type="color" value={color} onChange={(e) => setColor(e.currentTarget.value)} />
         <button onClick={() => onclick()}>
