@@ -4,7 +4,18 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [color, setColor] = useState('')
+  
+  const onclick = async () => {
+        let [tab] = await chrome.tabs.query({ active: true });
+        chrome.scripting.executeScript<string[], void>({
+          target: {tabId: tab.id!},
+          args: [color],
+          func: (color) => {
+            document.body.style.backgroundColor = color;
+          }
+        });
+  }
 
   return (
     <>
@@ -18,8 +29,9 @@ function App() {
       </div>
       <h1>React Basic Color Picker Extension</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <input type="color" value={color} onChange={(e) => setColor(e.currentTarget.value)} />
+        <button onClick={() => onclick()}>
+          Click to change color
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
